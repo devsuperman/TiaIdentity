@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>
+        @ViewBag.Title - App
+    </title>    
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    
+    <link rel="stylesheet" href="~/css/site.css" >
+
+</head>
+<body>
+
+  <header>
+        <partial name='_Menu'/>       
+  </header>
+
+  <main role="main" class="container">          
+
+      @if(!IsSectionDefined("cabecalho"))
+      {
+          <partial name="_Cabecalho"/>
+      }        
+      
+      @RenderSection("cabecalho", required: false)
+
+      @RenderBody()      
+  </main>
+
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted"></span>        
+            © 2018 App      
+        </div>
+    </footer>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.31.1/dist/sweetalert2.all.min.js"></script>       
+  <script src="~/js/site.js"></script>   
+
+  @RenderSection("scripts", required: false)
+
+</body>
+</html>

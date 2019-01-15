@@ -1,0 +1,72 @@
+﻿/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+.navbar>.container, .navbar>.container-fluid{
+  justify-content: right;
+}
+
+.list-group-item{
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.125);
+  margin-bottom: 0px;
+}
+
+.list-group-item p{  
+  margin-bottom: 0px;
+}
+
+/* Botão flutuantes exibidos no mobile */
+.flutuante{
+	position: fixed;
+	float: bottom;
+	bottom: 40px;
+	right: 15px;
+  z-index: 100;  
+}
+
+.botao-flutuante{	
+  width: 56px;  
+  height: 56px;  
+  padding: 0;
+  border-radius: 50%;
+} 
+
+.botao-flutuante i {
+  line-height: 56px;
+  font-size: 25px;
+}

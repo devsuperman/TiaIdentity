@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Usuario>
+
+@{
+    ViewBag.Title = "Usuários"; 
+    ViewData["Icone"] = "fa fa-user";   
+}
+
+@if (Model.Any())
+{
+    <ul class='list-group'>
+        @foreach (var item in Model)
+        {   
+            <li class="list-group-item"> 
+                <a asp-action='Editar' asp-route-id='@item.Id'>            
+                    <p class='mb-0'> <strong> 😄 @item.Nome </strong></p>
+                    <p class='mb-0'> <strong> 📧 @item.Email </strong></p>
+                </a>
+            </li>    
+        }
+    </ul>    
+}

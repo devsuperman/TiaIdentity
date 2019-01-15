@@ -1,0 +1,15 @@
+﻿@model Cor
+
+@{
+    ViewData["Title"] = "Criar Cor";
+    ViewBag.Icone = "fa fa-tag";
+}
+
+<form asp-action="Criar" method="POST">    
+    <partial name="_Form"/>    
+    <button type="submit" class="btn btn-primary"> Salvar </button> 
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

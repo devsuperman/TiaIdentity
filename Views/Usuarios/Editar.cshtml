@@ -1,0 +1,16 @@
+﻿@model UsuarioVM
+@{
+    ViewBag.Title = "Editar Usuário"; 
+    ViewData["Icone"] = "fa fa-user";   
+}
+
+<form asp-for="Editar" method="POST">    
+    <input asp-for='Id' type='hidden'>         
+    <partial name="_Form"/>
+    <button type="submit" class="btn btn-primary"> Salvar </button>   
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
