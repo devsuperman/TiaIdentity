@@ -1,14 +1,13 @@
 using System;
 using App.Models;
+using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using App.Interfaces;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace App.Services
 {

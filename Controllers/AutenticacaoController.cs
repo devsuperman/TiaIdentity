@@ -1,16 +1,13 @@
-using System;
-using System.Linq;
 using App.Models;
-using System.Threading.Tasks;
 using App.Services;
-using Microsoft.AspNetCore.Mvc;
 using App.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
 using App.Interfaces;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Controllers
-{    
+{
     public class AutenticacaoController : Controller
     {
         private readonly Contexto db;
@@ -22,12 +19,9 @@ namespace App.Controllers
             this.db = db;
             this.servicoDeEmail = servicoDeEmail;
             this.tiaIdentity = tiaIdentity;            
-        }        
-        
-        public IActionResult Login()
-        {
-            return View();
         }
+
+        public IActionResult Login() => View();
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM viewmodel)
@@ -72,7 +66,8 @@ namespace App.Controllers
             db.Update(usuario);
             await db.SaveChangesAsync();
 
-            await servicoDeEmail.EnviarEmailParaTrocaDeSenha(usuario.Email, usuario.Hash);                
+            //TODO: Descomentar se for utilizar
+            // await servicoDeEmail.EnviarEmailParaTrocaDeSenha(usuario.Email, usuario.Hash);                
 
             return Ok();
         }
