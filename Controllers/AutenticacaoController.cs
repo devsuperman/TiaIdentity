@@ -112,6 +112,8 @@ namespace App.Controllers
             return View(viewModel);
         }
 
+        public IActionResult AcessoNegado() => View();
+
     }
     
 }

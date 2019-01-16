@@ -36,7 +36,8 @@ namespace App
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(x =>
                 {
-                    x.LoginPath = "/autenticacao/login";                                                  
+                    x.LoginPath = "/autenticacao/login";                  
+                    x.AccessDeniedPath = "/autenticacao/acessonegado";                                
                 });
 
              services.AddDbContext<Contexto>(options =>

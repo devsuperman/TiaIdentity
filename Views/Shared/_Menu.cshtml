@@ -26,12 +26,24 @@
                 <a class='nav-link' asp-action='Index' asp-controller='Cores'>Cores</a>
             </li>                                                
 
+            <li class='nav-item @(controller is "Usuarios" ? "active" : "")'>
+                <a class='nav-link' asp-action='Index' asp-controller='Usuarios'>Usuários</a>
+            </li>                                   
+
             @if(User.IsInRole(Perfis.Administrador))
             {
-                <li class='nav-item @(controller is "Usuarios" ? "active" : "")'>
-                    <a class='nav-link' asp-action='Index' asp-controller='Usuarios'>Usuários</a>
-                </li>                                                
+                <li class='nav-item'>
+                    <a class='nav-link' href="#">Somente Admin Vê isso</a>
+                </li>                                   
             }
+
+            @if(User.IsInRole(Perfis.Comum))
+            {
+                <li class='nav-item'>
+                    <a class='nav-link' href="#">Somente Usuário Comum Vê isso</a>
+                </li>                                   
+            }
+
             <li class='nav-item'>
                 <a class='nav-link' asp-action='Logout' asp-controller='Autenticacao'>Sair</a>
             </li>  

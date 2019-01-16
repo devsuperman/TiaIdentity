@@ -15,6 +15,7 @@ namespace App.ViewModels
             this.Id = usuario.Id;
             this.Nome = usuario.Nome;
             this.Email = usuario.Email;
+            this.Perfil = usuario.Perfil;
         }
 
         public int Id { get; set; }
