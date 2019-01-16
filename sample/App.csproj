@@ -8,11 +8,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.EntityFrameWorkCore.Sqlite" Version="2.0.2" />    
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\src\TiaIdentity.csproj" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />    
+    <PackageReference Include="TiaIdentity" Version="0.1.0" />
   </ItemGroup>
 
 </Project>

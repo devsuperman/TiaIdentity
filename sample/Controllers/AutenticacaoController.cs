@@ -1,11 +1,11 @@
 using App.Models;
+using TiaIdentity;
 using App.Services;
 using App.ViewModels;
 using App.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TiaIdentity;
 
 namespace App.Controllers
 {
