@@ -47,18 +47,16 @@ namespace TiaIdentity
                 authProperties);
         }
 
+        public async Task LogoutAsync()
+        {
+            await httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        } 
 
         public bool SenhaCorreta(string senhaDigitada, string senhaSalva)
         {   
             var senhaDigitadaCriptografada = CriptografarSenha(senhaDigitada);
             return (senhaSalva == senhaDigitadaCriptografada);
         }
-
-
-        public async Task LogoutAsync()
-        {
-            await httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        } 
 
         public string CriptografarSenha(string txt)
         {            
