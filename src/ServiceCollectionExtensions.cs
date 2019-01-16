@@ -1,16 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using TiaIdentity;
 
-namespace TiaIdentity
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtension
     {
-       public static IServiceCollection AddTiaIdentity(this IServiceCollection services)
+       public static AuthenticationBuilder AddTiaIdentity(this IServiceCollection services)
        {
             services.AddHttpContextAccessor();
-            services.AddTransient<Autenticador>();
-            return services;
-       }
-
+            services.AddTransient<Autenticador>();              
+            return services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);                
+       }       
     }
 }

@@ -19,7 +19,7 @@ namespace TiaIdentity
             this.httpContextAccessor = _httpContextAccessor;                        
         }
 
-        internal async Task LoginAsync(IUsuario usuario, bool lembrar)
+        public async Task LoginAsync(IUsuario usuario, bool lembrar)
         {
             var claims = new List<Claim>
                 {   
@@ -43,14 +43,14 @@ namespace TiaIdentity
         }
 
 
-        internal bool SenhaCorreta(string senhaDigitada, string senhaSalva)
+        public bool SenhaCorreta(string senhaDigitada, string senhaSalva)
         {   
             var senhaDigitadaCriptografada = CriptografarSenha(senhaDigitada);
             return (senhaSalva == senhaDigitadaCriptografada);
         }
 
 
-        internal async Task LogoutAsync()
+        public async Task LogoutAsync()
         {
             await httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         } 

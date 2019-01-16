@@ -1,16 +1,13 @@
-﻿using System.Globalization;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using App.Models;
+using App.Services;
+using App.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using App.Interfaces;
-using App.Models;
-using App.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace App
 {
@@ -25,20 +22,16 @@ namespace App
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpContextAccessor();
-            
-            services.AddTransient<Services.TiaIdentity>();
-            services.AddTransient<Services.GeradorDeListas>();            
-
-            services.Configure<ConfiguracaoDeEmail>(Configuration.GetSection("ConfiguracoesDeEmail"));
-            services.AddTransient<IEmail, Gmail>();
-
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            services.AddTiaIdentity()
                 .AddCookie(x =>
                 {
                     x.LoginPath = "/autenticacao/login";                  
                     x.AccessDeniedPath = "/autenticacao/acessonegado";                                
-                });
+                });;                      
+
+            services.AddTransient<Services.GeradorDeListas>();            
+            services.Configure<ConfiguracaoDeEmail>(Configuration.GetSection("ConfiguracoesDeEmail"));
+            services.AddTransient<IEmail, Gmail>();
 
              services.AddDbContext<Contexto>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("AppDB")));
@@ -58,9 +51,9 @@ namespace App
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
             app.UseHsts();
-            app.UseAuthentication();
+            app.UseStaticFiles();
+            app.UseTiaIdentity();            
 
             app.UseMvc(routes =>
             {

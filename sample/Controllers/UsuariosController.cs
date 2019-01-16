@@ -8,6 +8,7 @@ using App.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using App.Interfaces;
+using TiaIdentity;
 
 namespace App.Controllers
 {    
@@ -15,11 +16,11 @@ namespace App.Controllers
     public class UsuariosController : Controller
     {
         private readonly Contexto db;
-        private readonly TiaIdentity tiaIdentity;
+        private readonly Autenticador tiaIdentity;
         private readonly IEmail email;
         private readonly GeradorDeListas geradorDeListas;
 
-        public UsuariosController(Contexto db, TiaIdentity tiaIdentity, IEmail email, GeradorDeListas geradorDeListas)
+        public UsuariosController(Contexto db, Autenticador tiaIdentity, IEmail email, GeradorDeListas geradorDeListas)
         {
             this.db = db;
             this.tiaIdentity = tiaIdentity;

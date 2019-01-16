@@ -1,9 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using TiaIdentity;
 
 namespace App.Models
 {
-    public class Usuario
+    public class Usuario : IUsuario
 	{		
         public int Id { get; set; }
         public Usuario()

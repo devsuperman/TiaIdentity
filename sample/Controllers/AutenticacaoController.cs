@@ -5,17 +5,18 @@ using App.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TiaIdentity;
 
 namespace App.Controllers
 {
     public class AutenticacaoController : Controller
     {
         private readonly Contexto db;
-        private readonly TiaIdentity tiaIdentity;        
+        private readonly Autenticador tiaIdentity;        
         private readonly IEmail servicoDeEmail;
 
-        public AutenticacaoController(Contexto db, TiaIdentity tiaIdentity, IEmail servicoDeEmail)
-        {
+        public AutenticacaoController(Contexto db, Autenticador tiaIdentity, IEmail servicoDeEmail)
+        {            
             this.db = db;
             this.servicoDeEmail = servicoDeEmail;
             this.tiaIdentity = tiaIdentity;            
@@ -25,7 +26,7 @@ namespace App.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM viewmodel)
-        {   
+        {               
             var usuario = await db.Usuarios.FirstOrDefaultAsync(a => a.Nome == viewmodel.Usuario);
             
             var loginOuSenhaIncorretos = (usuario == null) || !(tiaIdentity.SenhaCorreta(viewmodel.Senha, usuario.Senha));
