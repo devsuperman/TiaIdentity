@@ -5,7 +5,7 @@ namespace TiaIdentity
     {
         int Id { get; }
         string Nome { get; }
-        string Email { get; }
+        string Login { get; }        
         string Perfil { get; }
     }
 }

@@ -20,6 +20,8 @@ namespace App.Models
             Perfil = perfil;
 		}
 		
+        public string Login { get => Nome; }
+
         [Required, MaxLength(50)]
         public string Nome { get; set; }
 

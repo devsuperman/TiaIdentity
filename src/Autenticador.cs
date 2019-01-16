@@ -18,14 +18,19 @@ namespace TiaIdentity
         {
             this.httpContextAccessor = _httpContextAccessor;                        
         }
-
+        
         public async Task LoginAsync(IUsuario usuario, bool lembrar)
+        {
+            await LoginAsync(usuario.Login, usuario.Nome, usuario.Perfil, lembrar);
+        }
+
+        public async Task LoginAsync(string login, string nome, string perfil, bool lembrar)
         {
             var claims = new List<Claim>
                 {   
-                    new Claim(ClaimTypes.Name, usuario.Nome),                                     
-                    new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-                    new Claim(ClaimTypes.Role, usuario.Perfil)                                                        
+                    new Claim(ClaimTypes.Name, nome),                                     
+                    new Claim(ClaimTypes.NameIdentifier, login),
+                    new Claim(ClaimTypes.Role, perfil)                                                        
                 };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
