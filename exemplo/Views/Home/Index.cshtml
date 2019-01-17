@@ -6,18 +6,18 @@
 
 <hr>
 
-@if(User.IsInRole(Perfis.Administrador))
-{
-    <p>
-        Logado com perfil de @Perfis.Administrador
-    </p>
-}
+    @if(User.IsInRole(Perfis.Administrador))
+    {
+        <p>
+            Logado com perfil de @Perfis.Administrador
+        </p>
+    }
 
-@if(User.IsInRole(Perfis.Comum))
-{
-    <p>
-        Logado com perfil de @Perfis.Comum  
-    </p>
-}
+    @if(User.IsInRole(Perfis.Comum))
+    {
+        <p>
+            Logado com perfil de @Perfis.Comum  
+        </p>
+    }
 
 }

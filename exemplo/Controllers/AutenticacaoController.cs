@@ -1,5 +1,4 @@
 using App.Models;
-using TiaIdentity;
 using App.Services;
 using App.ViewModels;
 using App.Interfaces;
@@ -12,10 +11,10 @@ namespace App.Controllers
     public class AutenticacaoController : Controller
     {
         private readonly Contexto db;
-        private readonly Autenticador tiaIdentity;        
+        private readonly TiaIdentity.Autenticador tiaIdentity;        
         private readonly IEmail servicoDeEmail;
 
-        public AutenticacaoController(Contexto db, Autenticador tiaIdentity, IEmail servicoDeEmail)
+        public AutenticacaoController(Contexto db, TiaIdentity.Autenticador tiaIdentity, IEmail servicoDeEmail)
         {            
             this.db = db;
             this.servicoDeEmail = servicoDeEmail;

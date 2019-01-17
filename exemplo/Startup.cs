@@ -27,7 +27,7 @@ namespace App
                 {
                     x.LoginPath = "/autenticacao/login";                  
                     x.AccessDeniedPath = "/autenticacao/acessonegado";                                
-                });;                      
+                });                    
 
             services.AddTransient<Services.GeradorDeListas>();            
             services.Configure<ConfiguracaoDeEmail>(Configuration.GetSection("ConfiguracoesDeEmail"));
