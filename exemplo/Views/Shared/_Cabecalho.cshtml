@@ -1,9 +1,6 @@
 ﻿@{
-    var action = ViewContext.RouteData.Values["action"].ToString().ToLower(); 
-    var id = ViewContext.RouteData.Values["id"]?.ToString();
-    var temBotaoDeEditar = (action is "detalhes");
-    var temBotaoDeCriar = (action is "index");
-    var temBotaoSalvar = (action is "criar" || action is "editar");
+    var action = ViewContext.RouteData.Values["action"].ToString().ToLower();     
+    var temBotaoDeCriar = (action is "index");    
 }
 
 <h1 class='h2 mt-4'>
@@ -15,15 +12,7 @@
         </a>            
     }
 
-    @if (temBotaoDeEditar)
-    {            
-        <a asp-action='Editar' class='btn btn-primary' asp-route-id='@id' title="Editar">
-            🖊
-        </a>
-    }
-
-    <i class='@ViewBag.Icone'></i>
-    @ViewBag.Title
+    @ViewBag.Icone @ViewBag.Title
 </h1>
 
 <hr>
