@@ -1,0 +1,29 @@
+@model LoginVM
+
+@{
+    ViewBag.Title = "Entrar";
+    Layout = "_LayoutPublico";
+    var returnUrl = Context.Request.Query["ReturnUrl"].ToString();
+}  
+  
+<form asp-action="Login" method="post" class="form-signin">
+    <input asp-for='ReturnUrl' value="@returnUrl" type='hidden'>
+    <p class='icone-autenticacao'> 🔑 </p>
+
+    <h1 class="h3 mb-3 font-weight-normal">App</h1>
+    
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input asp-for="Usuario" class="form-control" placeholder="Usuário" required maxlength="20" autofocus>
+    <input asp-for="Senha"   class="form-control" placeholder="Senha"   required minlength="6" maxlength="20" type="password">
+
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" asp-for="Lembrar"> Lembrar
+        </label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+    <a asp-action="EsqueciMinhaSenha">Esqueci minha senha</a>
+    
+    <p class="mt-5 mb-3 text-muted">© App 2018</p>
+</form>

@@ -1,0 +1,22 @@
+@{
+    ViewBag.Title = "Esqueci minha senha";
+    Layout = "_LayoutPublico";
+}  
+  
+<form asp-action="EsqueciMinhaSenha" method="post" class="form-signin">
+    <p class='icone-autenticacao'> 😓 </p>
+
+    <h1 class="h3 mb-3 font-weight-normal">@ViewBag.Title</h1>
+    
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input name="Email" type="email" class="form-control mb-3" placeholder="Digite seu Email aqui" required maxlength="40" autofocus>    
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Recuperar Senha </button>
+    
+    <p class="mt-5 mb-3 text-muted">© App 2018</p>
+</form>
+
+@section scripts{       
+    
+    <script src='~/js/Autenticacao/esqueci-minha-senha.js'></script>
+}
