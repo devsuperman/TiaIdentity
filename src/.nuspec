@@ -3,16 +3,16 @@
     <metadata>
         <id>TiaIdentity</id>
         <title>Autenticação, Autorização e Simplicidade</title>
-        <version>0.1</version>
+        <version>1.0</version>
         <authors>Tiago Bernardo</authors>
         <owners>Tiago Bernardo</owners>        
-        <projectUrl>http://github.com/hsbtiago/tiaidentity</projectUrl>
-        <description>Uma alternativa enxuta ao ASP.CORE IDENTITY.</description>
+        <projectUrl>http://github.com/hsbtiago/tiaidentity</projectUrl>        
+        <description> 
+            TiaIdentity é uma alternativa enxuta ao ASP.CORE IDENTITY.            
+        </description>
+        <license type="expression">MIT</license>
         <dependencies>            
-            <dependency id="Microsoft.AspNetCore.Authentication" version="2.2.0" />
-            <dependency id="Microsoft.AspNetCore.Authentication.Cookies" version="2.2.0" />
-            <dependency id="Microsoft.AspNetCore.Http" version="2.2.0" />
-            <dependency id="Microsoft.Extensions.DependencyInjection" version="2.2.0" />
+            <dependency id="Microsoft.AspNetCore.Authentication.Cookies" version="2.1.0"/>
         </dependencies>
     </metadata>
 </package>

@@ -29,7 +29,7 @@ namespace App.Controllers
         {               
             var usuario = await db.Usuarios.FirstOrDefaultAsync(a => a.Nome == viewmodel.Usuario);
             
-            var loginOuSenhaIncorretos = (usuario == null) || !(tiaIdentity.SenhaCorreta(viewmodel.Senha, usuario.Senha));
+            var loginOuSenhaIncorretos = (usuario == null) || !(usuario.SenhaCorreta(viewmodel.Senha));
                 
             if (loginOuSenhaIncorretos)            
                 ModelState.AddModelError("", "Usuário ou Senha incorretos!");
@@ -80,7 +80,7 @@ namespace App.Controllers
 
             if (usuario == null || usuario.HashUtilizado)
             {
-                //this.Error("Este link está expirado.");
+                // Este link já foi utilizado
                 return RedirectToAction(nameof(Login));
             }
 
@@ -100,8 +100,7 @@ namespace App.Controllers
                 if (usuario == null || usuario.HashUtilizado)                
                     return RedirectToAction(nameof(Login));                
                 
-                var senhaCriptografada = tiaIdentity.CriptografarSenha(viewModel.NovaSenha);
-                usuario.AlterarSenha(senhaCriptografada);
+                usuario.AlterarSenha(viewModel.NovaSenha);
                 usuario.UtilizarHash();
                 
                 db.Update(usuario);

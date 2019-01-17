@@ -56,8 +56,8 @@ namespace App.Controllers
             {   
                 var usuario = new Usuario(viewModel.Nome, viewModel.Email, viewModel.Perfil);
 
-                //TODO: REtirar esse método para utilizar em produção
-                ColocarSenha123456(usuario);
+                //TODO: Retirar esse método para utilizar em produção
+                usuario.AlterarSenha("123456");
 
                 await db.AddAsync(usuario);
                 await db.SaveChangesAsync();
@@ -72,11 +72,6 @@ namespace App.Controllers
             return View(viewModel);
         }
 
-        private void ColocarSenha123456(Usuario usuario)
-        {
-            var senha = tiaIdentity.CriptografarSenha("123456");
-            usuario.AlterarSenha(senha);
-        }
 
         public async Task<IActionResult> Editar(int id)
         {

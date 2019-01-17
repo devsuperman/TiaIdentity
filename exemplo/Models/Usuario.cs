@@ -1,5 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
+using System.Text;
 using TiaIdentity;
 
 namespace App.Models
@@ -37,7 +39,7 @@ namespace App.Models
 
         public string Perfil { get; set; }
 
-        public void AlterarSenha(string senhaCriptografada) => this.Senha = senhaCriptografada;
+        public void AlterarSenha(string novaSenha) => this.Senha = CriptografarSenha(novaSenha);
 
         public void UtilizarHash() => this.HashUtilizado = true;
         
@@ -53,6 +55,26 @@ namespace App.Models
             this.Nome=nome;
             this.Email = email;
             this.Perfil = perfil;
+        }
+
+        public bool SenhaCorreta(string senhaDigitada)
+        {   
+            var senhaDigitadaCriptografada = CriptografarSenha(senhaDigitada);
+            return (this.Senha == senhaDigitadaCriptografada);
+        }
+
+        private string CriptografarSenha(string txt)
+        {            
+            var algoritmo = SHA512.Create();
+            var senhaEmBytes = Encoding.UTF8.GetBytes(txt);
+            var senhaCifrada = algoritmo.ComputeHash(senhaEmBytes);
+            
+            var sb = new StringBuilder();
+            
+            foreach (var caractere in senhaCifrada)            
+                sb.Append(caractere.ToString("X2"));
+            
+            return sb.ToString();
         }
 
     }

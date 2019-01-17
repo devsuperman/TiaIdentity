@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -52,25 +50,7 @@ namespace TiaIdentity
             await httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         } 
 
-        public bool SenhaCorreta(string senhaDigitada, string senhaSalva)
-        {   
-            var senhaDigitadaCriptografada = CriptografarSenha(senhaDigitada);
-            return (senhaSalva == senhaDigitadaCriptografada);
-        }
-
-        public string CriptografarSenha(string txt)
-        {            
-            var algoritmo = SHA512.Create();
-            var senhaEmBytes = Encoding.UTF8.GetBytes(txt);
-            var senhaCifrada = algoritmo.ComputeHash(senhaEmBytes);
-            
-            var sb = new StringBuilder();
-            
-            foreach (var caractere in senhaCifrada)            
-                sb.Append(caractere.ToString("X2"));
-            
-            return sb.ToString();
-        }
+      
 
     }
 }
