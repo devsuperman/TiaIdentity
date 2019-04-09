@@ -25,23 +25,37 @@ namespace TiaIdentity
         public async Task LoginAsync(string login, string nome, string perfil, bool lembrar)
         {
             var claims = new List<Claim>
-                {   
-                    new Claim(ClaimTypes.Name, nome),                                     
+                {
+                    new Claim(ClaimTypes.Name, nome),
                     new Claim(ClaimTypes.NameIdentifier, login),
-                    new Claim(ClaimTypes.Role, perfil)                                                        
+                    new Claim(ClaimTypes.Role, perfil)
                 };
 
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            await LogarComCookies(lembrar, claims);
+        }
 
-            var authProperties = new AuthenticationProperties
-            {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddHours(5),
-                IsPersistent = lembrar                
-            };
+        public async Task LoginAsync(string login, string nome, List<string> perfil, bool lembrar)
+        {
+            var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, nome),
+                    new Claim(ClaimTypes.NameIdentifier, login)                    
+                };
             
+            perfil.ForEach(f => claims.Add(new Claim(ClaimTypes.Role, f)));
+
+            await LogarComCookies(lembrar, claims);
+        }
+
+        private async Task LogarComCookies(bool lembrar, List<Claim> claims)
+        {
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimPrincipal = new ClaimsPrincipal(claimsIdentity);
+            var authProperties = new AuthenticationProperties { IsPersistent = lembrar };
+
             await httpContextAccessor.HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme, 
-                new ClaimsPrincipal(claimsIdentity),
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                claimPrincipal,
                 authProperties);
         }
 
@@ -53,4 +67,5 @@ namespace TiaIdentity
       
 
     }
+   
 }

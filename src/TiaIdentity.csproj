@@ -2,10 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>TiaIdentity</PackageId>
+    <Title>Autenticação, Autorização e Simplicidade</Title>
+    <PackageVersion>1.0.2</PackageVersion>
+    <Authors>Tiago Bernardo</Authors>
+    <owners>Tiago Bernardo</owners>        
+    <RepositoryUrl>https://github.com/hsbtiago/tiaidentity</RepositoryUrl>        
+    <Description> 
+        TiaIdentity é uma alternativa enxuta ao ASP.CORE IDENTITY.            
+    </Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.1.0" />
   </ItemGroup>
-
 </Project>
