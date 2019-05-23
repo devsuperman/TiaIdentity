@@ -7,12 +7,7 @@
 4. Receba a dependência do TiaIdentity.Autenticador na controller ([Veja AutenticacaoController no projeto de Exemplo](https://github.com/hsbtiago/TiaIdentity/blob/master/exemplo/Controllers/AutenticacaoController.cs))  
 5. Utilize os métodos LoginAsync e LogoutAsync conforme precisar ([Veja AutenticacaoController no projeto de Exemplo](https://github.com/hsbtiago/TiaIdentity/blob/master/exemplo/Controllers/AutenticacaoController.cs))
 
-Bônus. O método LoginAsync tem 2 sobrecargas, uma com os parametros soltos e outra com a implementação da interface TiaIdentity.IUsuario. Fique a vontade para escolher qual utilizar.
-
-## Rotas úteis para testes
-Criação de Usuário (acesso público): /Usuarios/Criar  
-Início (acesso somente para usuário logado): /  
-Cores (acesso somente para usuário com perfil de Administrador): /Cores  
+Bônus. O método LoginAsync tem 2 sobrecargas, uma com os parametros soltos e outra com a implementação da interface TiaIdentity.IUsuario.
 
 ### Extras
 Para interar a autenticação, o projeto de exemplo contém também um método de criptografia de senha na classe usuário e uma classe para envio de email. Para ativar a classe de envio de email faça o seguinte:
