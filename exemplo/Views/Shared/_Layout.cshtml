@@ -1,48 +1,106 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <title>
-        @ViewBag.Title - App
-    </title>    
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    
-    <link rel="stylesheet" href="~/css/site.css" >
+  @{
+    ViewBag.nomeDoApp = "Exemplo TiaIdentity";
+  }
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title> @ViewBag.Title - @ViewBag.nomeDoApp </title>
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css" rel="stylesheet">    
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href='https://cdn.jsdelivr.net/npm/pnotify@4.0.0-beta.2/dist/PNotifyBrightTheme.min.css' rel="stylesheet">
+  
+  <link href="~/css/site.css" rel="stylesheet" asp-append-version='true'/>
 
 </head>
 <body>
+  
+  <header>       
+    
+    <nav class="blue darken-4 top-nav" role="navigation">
+      <div class="nav-wrapper container">        
+        <a href="#" data-target="slide-out" class="sidenav-trigger">
+          <i class="fas fa-bars"></i>
+        </a>             
+        <span id='titulo-da-pagina'>
+          @ViewBag.Title                             
+        </span>                     
+      </div>                
+    </nav>   
 
-  <header>
-        <partial name='_Menu'/>       
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+      <li class='logo'>
+        
+        <span id='logo'>🔑</span>
+
+        <h1 class='titulo-do-menu'>
+          @ViewBag.nomeDoApp
+        </h1>        
+        
+        <br>
+
+        <div class='divider'></div>
+        
+      </li>      
+            
+      <li><a asp-action='Index' asp-controller='Home'>Início</a></li>
+      <li><a asp-action='Index' asp-controller='Usuarios'> Usuários </a></li>
+      <li><a asp-action='Index' asp-controller='Cores'> Cores </a></li>
+      <li><a asp-action='Logout' asp-controller='Autenticacao'> Sair </a></li>
+      
+    </ul>
   </header>
 
-  <main role="main" class="container">          
 
-      @if(!IsSectionDefined("cabecalho"))
-      {
-          <partial name="_Cabecalho"/>
-      }        
+  <main class="section">
+    <div class="container">
+        @RenderBody()
+    </div>
+  </main>   
+
+  <a class="modal-trigger" href="#modalPageLoader" id='btnModalPageLoader'></a>
+
+  <div id="modalPageLoader" class="modal">
+    <div class="modal-content center-align" style='height: 30rem;'> 
       
-      @RenderSection("cabecalho", required: false)
-
-      @RenderBody()      
-  </main>
-
-    <footer class="footer">
-        <div class="container">
-            <span class="text-muted"></span>        
-            © 2018 App      
+        <div class="preloader-wrapper big active" style='margin-top: 5rem;'>
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
         </div>
-    </footer>
 
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.31.1/dist/sweetalert2.all.min.js"></script>       
-  <script src="~/js/site.js"></script>   
+    </div>    
+  </div>
 
-  @RenderSection("scripts", required: false)
+  <footer class="page-footer blue darken-1">
+    <div class="footer-copyright">
+      <div class="container">        
+        © @ViewBag.nomeDoApp - @DateTime.Today.Year
+      </div>
+    </div>
+  </footer>
 
-</body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>    
+
+  <script src='https://cdn.jsdelivr.net/npm/pnotify@4.0.0-beta.2/dist/iife/PNotify.min.js'></script>   
+  <script src='https://cdn.jsdelivr.net/npm/pnotify@4.0.0-beta.2/dist/iife/PNotifyButtons.min.js'></script>   
+  <script src='https://cdn.jsdelivr.net/npm/pnotify@4.0.0-beta.2/dist/iife/PNotifyMobile.min.js'></script>   
+  
+  <script src="~/js/site.js" asp-append-version='true'></script>
+
+  @RenderSection("scripts", false)
+
+  <partial name='_Alertas'/>
+
+  </body>
 </html>

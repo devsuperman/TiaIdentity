@@ -1,22 +1,29 @@
 @{
-    ViewBag.Title = "Esqueci minha senha";
-    Layout = "_LayoutPublico";
+    ViewBag.Title = "Esqueci Minha Senha";
+    Layout = "_LayoutLogin";
 }  
+
+<div class="card card-login">
+    <div class="card-content">
+
+      <form asp-action="EsqueciMinhaSenha" method="post">
+        
+        <div class='caixa-titulo'>
+            <span id='logo'> 🔑 </span>  
+            <h1>Exemplo TiaIdentity</h1>
+        </div>
+      
+        <div class="input-field">
+          <input name='email' id='email'class="validate" required autofocus type='email'>                  
+          <label for="email">Email</label>
+        </div>                     
+
+        <div class='row'>
+          <input type="submit" class="btn btn-submit" value="Enviar">     
+        </div>
+
+      </form>
+    </div>
+  </div>
+
   
-<form asp-action="EsqueciMinhaSenha" method="post" class="form-signin">
-    <p class='icone-autenticacao'> 😓 </p>
-
-    <h1 class="h3 mb-3 font-weight-normal">@ViewBag.Title</h1>
-    
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <input name="Email" type="email" class="form-control mb-3" placeholder="Digite seu Email aqui" required maxlength="40" autofocus>    
-
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Recuperar Senha </button>
-    
-    <p class="mt-5 mb-3 text-muted">© App 2018</p>
-</form>
-
-@section scripts{       
-    
-    <script src='~/js/Autenticacao/esqueci-minha-senha.js'></script>
-}

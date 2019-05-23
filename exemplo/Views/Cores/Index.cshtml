@@ -2,19 +2,25 @@
 
 @{
     ViewBag.Title = "Cores";
-    ViewBag.Icone = "🎨";
 }
+
+<partial name='_CriarChick'/>
 
 @if (Model.Any())
 {
-    <ul class='list-group'>
+    <div class='collection'>
         @foreach (var item in Model)
-        {   
-            <li class="list-group-item">
-                <a asp-action='Editar' asp-route-id='@item.Id'>            
-                    <p class='mb-0'> <strong> @item.Nome </strong></p>
-                </a>
-            </li>    
+        {        
+            <a asp-action='Editar' asp-route-id='@item.Id' class='collection-item avatar'>            
+                <div class='item-avatar'>
+                    🎨                    
+                </div>
+                @item.Nome <br>
+            </a>
         }
-    </ul>
+    </div>
+}
+else
+{
+    <p> 😱 Não há registros aqui </p>
 }

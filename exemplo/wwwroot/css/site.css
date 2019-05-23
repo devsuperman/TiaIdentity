@@ -1,72 +1,113 @@
-﻿/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+﻿header, main, footer {
+  padding-left: 300px;
 }
+
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
+}
+
+li > h1{
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
-.footer {
+
+main {
+  flex: 1 0 auto;
+}
+
+nav{
+  font-size: 1.5rem;
+}
+
+ul.sidenav.sidenav-fixed li.logo {
+  text-align: center;
+  margin-top: 32px;  
+}
+
+.validation-summary-errors > ul {
+  margin: .5rem 0 1rem 0;
+  margin-bottom: 2rem;        
+  list-style-type: inherit;
+  padding-left: 2rem;
+}
+.validation-summary-errors > ul > li{
+  list-style-type: inherit;
+  color: red;
+}
+
+#logo {
+  font-size: 5rem;
+  margin-bottom: 32px;
+  font-size: 5rem;  
+}
+
+.collection{
+  border-top: none;  
+  border-left: none;  
+  border-right: none;  
+
+}
+
+.collection .collection-item {
+  border-top: 1px solid #e0e0e0;
+  border-bottom: none;
+}
+
+.collection.with-header .collection-header{  
+  font-size: 1.5rem;
+}
+
+.titulo-do-menu
+{  
+  padding-bottom: 0;
+   border-bottom: none;
+}
+
+.collection .collection-item.avatar {
+  padding-left: 65px;
+  min-height: 60px; 
+}
+
+.item-avatar {
   position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
-  background-color: #f5f5f5;
-}
-
-
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-
-body > .container {
-  padding: 60px 15px 0;
-}
-
-.footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
-code {
-  font-size: 80%;
-}
-
-.navbar>.container, .navbar>.container-fluid{
-  justify-content: right;
-}
-
-.list-group-item{
-  border: none;
-  border-bottom: 1px solid rgba(0,0,0,0.125);
-  margin-bottom: 0px;
-}
-
-.list-group-item p{  
-  margin-bottom: 0px;
-}
-
-/* Botão flutuantes exibidos no mobile */
-.flutuante{
-	position: fixed;
-	float: bottom;
-	bottom: 40px;
-	right: 15px;
-  z-index: 100;  
-}
-
-.botao-flutuante{	
-  width: 56px;  
-  height: 56px;  
-  padding: 0;
+  width: 42px;
+  height: 42px;  
+  left: 5px;
+  display: inline-block;
+  vertical-align: middle;
   border-radius: 50%;
-} 
+  font-size: 2rem;  
+}
 
-.botao-flutuante i {
-  line-height: 56px;
-  font-size: 25px;
+h1{
+  font-size: 2rem;  
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h2{
+  font-size: 1.8rem;
+}
+
+.collection .collection-item.avatar .secondary-content {
+  top: 10px;
+}
+
+.container {
+    width: 90%;
+}
+
+
+#modalPageLoader{
+  box-shadow: none;
+  background-color: transparent;
 }

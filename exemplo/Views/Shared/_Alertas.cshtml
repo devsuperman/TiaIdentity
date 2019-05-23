@@ -1,0 +1,14 @@
+@{
+    var mensagem = TempData["alerta"]?.ToString();
+    var exibirAlertaDeSucesso = !(string.IsNullOrEmpty(mensagem));    
+}
+
+@if(exibirAlertaDeSucesso)
+{
+    <input type='hidden' id='mensagem' value='@mensagem'/>
+
+    <script type="text/javascript">        
+        var mensagem = document.getElementById('mensagem');
+        PNotify.success(mensagem.value);        
+    </script>
+}   

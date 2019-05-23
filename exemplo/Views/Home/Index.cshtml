@@ -1,23 +1,22 @@
-﻿@section cabecalho{
-    
-<h1 class='h2 mt-4'>
-    🏡 Início
-</h1>
+﻿
+@{
+    ViewBag.Title = "Início"; 
+}
 
-<hr>
+<h1 class='h2 mt-4'>
+    😎
 
     @if(User.IsInRole(Perfis.Administrador))
     {
-        <p>
+        <span>
             Logado com perfil de @Perfis.Administrador
-        </p>
+        </span>
     }
 
     @if(User.IsInRole(Perfis.Comum))
     {
-        <p>
+        <span>
             Logado com perfil de @Perfis.Comum  
-        </p>
+        </span>
     }
-
-}
+</h1>

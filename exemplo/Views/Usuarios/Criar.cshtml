@@ -1,13 +1,8 @@
 ﻿@{
     ViewBag.Title = "Novo Usuário";    
-    ViewData["Icone"] = "🤓";   
 }
 
-<form asp-for="Criar" method="POST">    
-    <partial name="_Form"/>
-    <button type="submit" class="btn btn-primary"> Salvar </button> 
+<form asp-action="Criar" method="POST">    
+    <partial name="_Form"/>    
+    <partial name='_SubmitChick'/>
 </form>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

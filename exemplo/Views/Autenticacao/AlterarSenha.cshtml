@@ -2,25 +2,41 @@
 
 @{
     ViewBag.Title = "Alterar Senha";
-    Layout = "_LayoutPublico";
+    Layout = "_LayoutLogin";
 }  
-  
-<form asp-action="AlterarSenha" method="post" class="form-signin">
-    <p class='icone-autenticacao'> 🔑 </p>
 
-    <h1 class="h3 mb-3 font-weight-normal"> @ViewBag.Title </h1>    
-    
-    @Html.Hidden("Id")
+<div class="card card-login">
+    <div class="card-content">
 
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <input class="form-control" required maxlength="20" type="password" asp-for="NovaSenha"      placeholder="Nova Senha"           autofocus>
-    <input class="form-control" required maxlength="20" type="password" asp-for="ConfirmarSenha" placeholder="Confirmar Nova Senha"          >
-
-    <button class="btn btn-lg btn-primary btn-block" type="submit"> Salvar </button>
+      <form asp-action="AlterarSenha" method="post">
         
-    <p class="mt-5 mb-3 text-muted">© App 2018</p>
-</form>
+        <div class='caixa-titulo'>
+            <span id='logo'> 🔑 </span>  
+            <h1>Super OS</h1>
+        </div>
 
-@section scripts{
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+        <div class="input-field">          
+          <input asp-for='NovaSenha' class="validate" required type="password" maxlength="20" autofocus>                  
+          <label asp-for="NovaSenha"></label>
+        </div>
+
+        <div class="input-field">          
+          <input asp-for='ConfirmarSenha' class="validate" required type="password" maxlength="20" autofocus>                  
+          <label asp-for="ConfirmarSenha"></label>
+        </div>                     
+
+        <div class='row'>
+          <input type="submit" class="btn btn-submit" value="Enviar">     
+        </div>
+
+        <div class='divider'></div>
+
+        <div class="row">
+          <div class='col red-text center'>
+            <a asp-action='EsqueciMinhaSenha'>Esqueci minha senha</a>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>

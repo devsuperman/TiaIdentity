@@ -2,28 +2,45 @@
 
 @{
     ViewBag.Title = "Entrar";
-    Layout = "_LayoutPublico";
+    Layout = "_LayoutLogin";
     var returnUrl = Context.Request.Query["ReturnUrl"].ToString();
 }  
-  
-<form asp-action="Login" method="post" class="form-signin">
-    <input asp-for='ReturnUrl' value="@returnUrl" type='hidden'>
-    <p class='icone-autenticacao'> 🔑 </p>
 
-    <h1 class="h3 mb-3 font-weight-normal">App</h1>
-    
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <input asp-for="Usuario" class="form-control" placeholder="Usuário" required maxlength="20" autofocus>
-    <input asp-for="Senha"   class="form-control" placeholder="Senha"   required minlength="6" maxlength="20" type="password">
+<div class="card card-login">
+    <div class="card-content">
 
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" asp-for="Lembrar"> Lembrar
-        </label>
+      <form asp-action="Login" method="post">
+        <input asp-for='ReturnUrl' value="@returnUrl" type='hidden'>
+        
+        <div class='caixa-titulo'>            
+            <span id='logo'> 🔑 </span>  
+            <h1>Exemplo TiaIdentity</h1>
+        </div>
+      
+        <div class="input-field">
+          <i class="material-icons prefix">person</i>
+          <input asp-for="Usuario" class="validate" required autofocus maxlength="20">                  
+          <label asp-for="Usuario"></label>
+        </div>
+
+        <div class="input-field">
+          <i class="material-icons prefix prefix">lock</i>
+          <input asp-for="Senha" class="validate" required minlength="5" maxlength="20" type="password">
+          <label asp-for="Senha"> </label>
+        </div>
+                
+        <div class='row'>
+          <input type="submit" class="btn btn-submit" value="Entrar">     
+        </div>
+
+        <div class='divider'></div>
+
+        <div class="row">
+          <div class='col red-text center'>
+            <a asp-action='EsqueciMinhaSenha'>Esqueci minha senha</a>
+          </div>
+        </div>
+
+      </form>
     </div>
-
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
-    <a asp-action="EsqueciMinhaSenha">Esqueci minha senha</a>
-    
-    <p class="mt-5 mb-3 text-muted">© App 2018</p>
-</form>
+  </div>
