@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Options;
-using App.Interfaces;
 using System.Threading.Tasks;
 using App.Models;
 using System.Net.Mail;
@@ -9,12 +8,12 @@ using System.Text;
 
 namespace App.Services
 {
-    public class Gmail : IEmail
+    public class Email
     {
        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly ConfiguracaoDeEmail configuracoesDeEmail;
 
-        public Gmail(IOptions<ConfiguracaoDeEmail> configuracoesDeEmail, IHttpContextAccessor httpContextAccessor)
+        public Email(IOptions<ConfiguracaoDeEmail> configuracoesDeEmail, IHttpContextAccessor httpContextAccessor)
         {
             this.configuracoesDeEmail = configuracoesDeEmail.Value;
             this.httpContextAccessor = httpContextAccessor;

@@ -1,6 +1,5 @@
 ﻿using App.Models;
 using App.Services;
-using App.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +30,7 @@ namespace App
 
             services.AddTransient<Services.GeradorDeListas>();            
             services.Configure<ConfiguracaoDeEmail>(Configuration.GetSection("ConfiguracoesDeEmail"));
-            services.AddTransient<IEmail, Gmail>();
+            services.AddTransient<Email>();
 
              services.AddDbContext<Contexto>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("AppDB")));

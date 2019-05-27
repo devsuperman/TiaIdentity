@@ -1,7 +1,6 @@
 using App.Models;
 using App.Services;
 using App.ViewModels;
-using App.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +11,9 @@ namespace App.Controllers
     {
         private readonly Contexto db;
         private readonly TiaIdentity.Autenticador tiaIdentity;        
-        private readonly IEmail servicoDeEmail;
+        private readonly Email servicoDeEmail;
 
-        public AutenticacaoController(Contexto db, TiaIdentity.Autenticador tiaIdentity, IEmail servicoDeEmail)
+        public AutenticacaoController(Contexto db, TiaIdentity.Autenticador tiaIdentity, Email servicoDeEmail)
         {            
             this.db = db;
             this.servicoDeEmail = servicoDeEmail;

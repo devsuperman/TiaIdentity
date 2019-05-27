@@ -1,26 +1,22 @@
-using System;
-using System.Linq;
 using App.Models;
 using System.Threading.Tasks;
 using App.Services;
 using Microsoft.AspNetCore.Mvc;
 using App.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using App.Interfaces;
 using TiaIdentity;
 
 namespace App.Controllers
-{    
+{
     //[Authorize(Roles = "Administrador")]
     public class UsuariosController : Controller
     {
         private readonly Contexto db;
         private readonly Autenticador tiaIdentity;
-        private readonly IEmail email;
+        private readonly Email email;
         private readonly GeradorDeListas geradorDeListas;
 
-        public UsuariosController(Contexto db, Autenticador tiaIdentity, IEmail email, GeradorDeListas geradorDeListas)
+        public UsuariosController(Contexto db, Autenticador tiaIdentity, Email email, GeradorDeListas geradorDeListas)
         {
             this.db = db;
             this.tiaIdentity = tiaIdentity;
