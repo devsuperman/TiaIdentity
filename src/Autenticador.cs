@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
@@ -10,39 +9,37 @@ namespace TiaIdentity
 {
     public class Autenticador
     {
-        private readonly IHttpContextAccessor httpContextAccessor;        
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         public Autenticador(IHttpContextAccessor _httpContextAccessor)
         {
-            this.httpContextAccessor = _httpContextAccessor;                        
+            this.httpContextAccessor = _httpContextAccessor;
         }
-        
+
         public async Task LoginAsync(IUsuario usuario, bool lembrar)
         {
-            await LoginAsync(usuario.Login, usuario.Nome, usuario.Perfil, lembrar);
+            await LoginAsync(usuario.Login, usuario.Nome, lembrar, usuario.Perfil);
         }
 
-        public async Task LoginAsync(string login, string nome, string perfil, bool lembrar)
+        public async Task LoginAsync(string login, string nome, bool lembrar, string perfil, List<Claim> outrasClaims = null)
         {
-            var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, nome),
-                    new Claim(ClaimTypes.NameIdentifier, login),
-                    new Claim(ClaimTypes.Role, perfil)
-                };
-
-            await LogarComCookies(lembrar, claims);
+            var perfis = new List<string> { perfil };
+            await LoginAsync(login, nome, lembrar, perfis, outrasClaims);
         }
 
-        public async Task LoginAsync(string login, string nome, List<string> perfil, bool lembrar)
+        public async Task LoginAsync(string login, string nome, bool lembrar, List<string> perfis, List<Claim> outrasClaims = null)
         {
             var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, nome),
-                    new Claim(ClaimTypes.NameIdentifier, login)                    
-                };
-            
-            perfil.ForEach(f => claims.Add(new Claim(ClaimTypes.Role, f)));
+            {
+                new Claim(ClaimTypes.Name, nome),
+                new Claim(ClaimTypes.NameIdentifier, login)
+            };
+
+            if (perfis != null)
+                perfis.ForEach(f => claims.Add(new Claim(ClaimTypes.Role, f)));
+
+            if (outrasClaims != null)
+                outrasClaims.ForEach(f => claims.Add(f));
 
             await LogarComCookies(lembrar, claims);
         }
@@ -62,10 +59,10 @@ namespace TiaIdentity
         public async Task LogoutAsync()
         {
             await httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        } 
+        }
 
-      
+
 
     }
-   
+
 }
