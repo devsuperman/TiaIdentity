@@ -1,18 +1,42 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.EntityFrameworkCore;
+using App.Services;
+using App.Models;
 
-namespace App
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddTiaIdentity()
+                .AddCookie(x =>
+                {
+                    x.LoginPath = "/autenticacao/login";
+                    x.AccessDeniedPath = "/autenticacao/acessonegado";
+                });
+
+builder.Services.AddTransient<GeradorDeListas>();
+builder.Services.Configure<ConfiguracaoDeEmail>(builder.Configuration.GetSection("ConfiguracoesDeEmail"));
+builder.Services.AddTransient<Email>();
+
+builder.Services.AddDbContext<Contexto>(options =>
+   options.UseSqlite(builder.Configuration.GetConnectionString("AppDB")));
+
+
+var app = builder.Build();
+
+if (!app.Environment.IsDevelopment())
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            BuildWebHost(args).Run();
-        }
-
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
-    }
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+app.UseAuthorization();
+app.UseTiaIdentity();            
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();

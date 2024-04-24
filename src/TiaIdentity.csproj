@@ -1,10 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
     <PackageId>TiaIdentity</PackageId>
     <Title>Autenticação, Autorização e Simplicidade</Title>
-    <PackageVersion>1.0.3</PackageVersion>
+    <PackageVersion>8.0.0</PackageVersion>
     <Authors>Tiago Bernardo</Authors>
     <owners>Tiago Bernardo</owners>        
     <RepositoryUrl>https://github.com/hsbtiago/tiaidentity</RepositoryUrl>        
@@ -15,6 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.1.0" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
+  
 </Project>
