@@ -6,6 +6,13 @@
 <h1 class='h2 mt-4'>
     😎
 
+    @if(!User.Identity.IsAuthenticated)
+    {
+        <span>
+            Usuário nao autenticado.
+        </span>
+    } 
+
     @if(User.IsInRole(Perfis.Administrador))
     {
         <span>

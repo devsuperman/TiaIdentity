@@ -23,22 +23,12 @@
           <label asp-for="Usuario"></label>
         </div>
 
-        <div class="input-field">
-          <i class="material-icons prefix prefix">lock</i>
-          <input asp-for="Senha" class="validate" required minlength="5" maxlength="20" type="password">
-          <label asp-for="Senha"> </label>
+        <div asp-validation-summary="All" class="text-danger">
+
         </div>
                 
         <div class='row'>
           <input type="submit" class="btn btn-submit" value="Entrar">     
-        </div>
-
-        <div class='divider'></div>
-
-        <div class="row">
-          <div class='col red-text center'>
-            <a asp-action='EsqueciMinhaSenha'>Esqueci minha senha</a>
-          </div>
         </div>
 
       </form>

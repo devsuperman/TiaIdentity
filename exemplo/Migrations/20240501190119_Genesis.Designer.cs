@@ -5,25 +5,29 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace App.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20190115172520_Genesis")]
+    [Migration("20240501190119_Genesis")]
     partial class Genesis
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
 
             modelBuilder.Entity("App.Models.Cor", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Nome")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -33,25 +37,27 @@ namespace App.Migrations
             modelBuilder.Entity("App.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("Hash");
+                    b.Property<string>("Hash")
+                        .HasColumnType("TEXT");
 
-                    b.Property<bool>("HashUtilizado");
+                    b.Property<bool>("HashUtilizado")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("Perfil");
-
-                    b.Property<string>("Senha")
-                        .IsRequired()
-                        .HasMaxLength(20);
+                    b.Property<string>("Perfil")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
