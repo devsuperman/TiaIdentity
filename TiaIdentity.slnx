@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="exemplo/App.csproj" />
+  <Project Path="src/TiaIdentity.csproj" />
+</Solution>
