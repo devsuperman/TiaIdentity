@@ -1,66 +1,175 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 namespace TiaIdentity
 {
-    public class Autenticador
+    public sealed class Autenticador
     {
-        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public Autenticador(IHttpContextAccessor _httpContextAccessor)
+        public Autenticador(IHttpContextAccessor httpContextAccessor)
         {
-            this.httpContextAccessor = _httpContextAccessor;
+            _httpContextAccessor = httpContextAccessor
+                ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         }
 
         public async Task LoginAsync(IUsuario usuario, bool lembrar)
         {
-            await LoginAsync(usuario.Login, usuario.Nome, lembrar, usuario.Perfil);
+            ArgumentNullException.ThrowIfNull(usuario);
+
+            await LoginAsync(
+                usuario.Login,
+                usuario.Nome,
+                lembrar,
+                new List<string> { usuario.Perfil });
         }
 
-        public async Task LoginAsync(string login, string nome, bool lembrar, string perfil, List<Claim> outrasClaims = null)
+        public async Task LoginAsync(
+            string login,
+            string nome,
+            bool lembrar,
+            string perfil,
+            List<Claim>? outrasClaims = null)
         {
-            var perfis = new List<string> { perfil };
-            await LoginAsync(login, nome, lembrar, perfis, outrasClaims);
+            await LoginAsync(
+                login,
+                nome,
+                lembrar,
+                new List<string> { perfil },
+                outrasClaims);
         }
 
-        public async Task LoginAsync(string login, string nome, bool lembrar, List<string> perfis, List<Claim> outrasClaims = null)
+        public async Task LoginAsync(
+            string login,
+            string nome,
+            bool lembrar,
+            List<string>? perfis,
+            List<Claim>? outrasClaims = null)
         {
+            if (string.IsNullOrWhiteSpace(login))
+                throw new ArgumentException("Informe o login.", nameof(login));
+
+            if (string.IsNullOrWhiteSpace(nome))
+                throw new ArgumentException("Informe o nome.", nameof(nome));
+
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, nome),
-                new Claim(ClaimTypes.NameIdentifier, login)
+                new Claim(ClaimTypes.NameIdentifier, login),
+                new Claim(ClaimTypes.Name, nome)
             };
 
-            if (perfis != null)
-                perfis.ForEach(f => claims.Add(new Claim(ClaimTypes.Role, f)));
+            if (perfis != null && perfis.Any())
+            {
+                claims.AddRange(
+                    perfis
+                        .Where(p => !string.IsNullOrWhiteSpace(p))
+                        .Select(p => new Claim(ClaimTypes.Role, p)));
+            }
 
-            if (outrasClaims != null)
-                outrasClaims.ForEach(f => claims.Add(f));
+            if (outrasClaims != null && outrasClaims.Any())
+            {
+                claims.AddRange(outrasClaims);
+            }
 
-            await LogarComCookies(lembrar, claims);
+            await EfetuarLoginAsync(lembrar, claims);
         }
 
-        private async Task LogarComCookies(bool lembrar, List<Claim> claims)
+        private async Task EfetuarLoginAsync(
+            bool lembrar,
+            IEnumerable<Claim> claims)
         {
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var claimPrincipal = new ClaimsPrincipal(claimsIdentity);
-            var authProperties = new AuthenticationProperties { IsPersistent = lembrar };
+            var httpContext = _httpContextAccessor.HttpContext
+                ?? throw new InvalidOperationException("HttpContext não disponível.");
 
-            await httpContextAccessor.HttpContext.SignInAsync(
+            var identity = new ClaimsIdentity(
+                claims,
+                CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var principal = new ClaimsPrincipal(identity);
+
+            var properties = new AuthenticationProperties
+            {
+                IsPersistent = lembrar,
+                AllowRefresh = true,
+                IssuedUtc = DateTimeOffset.UtcNow
+            };
+
+            await httpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
-                claimPrincipal,
-                authProperties);
+                principal,
+                properties);
         }
 
         public async Task LogoutAsync()
         {
-            await httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            var httpContext = _httpContextAccessor.HttpContext
+                ?? throw new InvalidOperationException("HttpContext não disponível.");
+
+            await httpContext.SignOutAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
+        public string? LoginUsuario
+        {
+            get
+            {
+                return _httpContextAccessor.HttpContext?
+                    .User?
+                    .FindFirst(ClaimTypes.NameIdentifier)?
+                    .Value;
+            }
+        }
 
+        public string? NomeUsuario
+        {
+            get
+            {
+                return _httpContextAccessor.HttpContext?
+                    .User?
+                    .Identity?
+                    .Name;
+            }
+        }
 
+        public bool EstaAutenticado
+        {
+            get
+            {
+                return _httpContextAccessor.HttpContext?
+                    .User?
+                    .Identity?
+                    .IsAuthenticated ?? false;
+            }
+        }
+
+        public List<string> Perfis
+        {
+            get
+            {
+                return _httpContextAccessor.HttpContext?
+                    .User?
+                    .FindAll(ClaimTypes.Role)
+                    .Select(x => x.Value)
+                    .ToList()
+                    ?? new List<string>();
+            }
+        }
+
+        public string? ObterClaim(string tipo)
+        {
+            return _httpContextAccessor.HttpContext?
+                .User?
+                .FindFirst(tipo)?
+                .Value;
+        }
+
+        public bool PossuiPerfil(string perfil)
+        {
+            return _httpContextAccessor.HttpContext?
+                .User?
+                .IsInRole(perfil) ?? false;
+        }
     }
-
 }
